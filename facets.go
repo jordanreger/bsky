@@ -2,23 +2,21 @@ package main
 
 import (
 	"html/template"
-	"strings"
 )
 
 func parseFacets(text string, facets []Facet) template.HTML {
-	for i, f := range facets {
-		if i > 0 {
-			break
-		}
+	offset := 0
+	for _, f := range facets {
 		if f.Features[0].Type == "app.bsky.richtext.facet#link" {
-			in_txt := text[f.Index.ByteStart:f.Index.ByteEnd]
+			in_txt := text[f.Index.ByteStart+offset : f.Index.ByteEnd+offset]
 			m_url := "<a href='" + f.Features[len(f.Features)-1].URI + "'>" + in_txt + "</a>"
-			text = strings.Replace(text, in_txt, m_url, 1)
-
+			text = text[:f.Index.ByteStart+offset] + m_url + text[f.Index.ByteEnd+offset:]
+			offset += len(m_url) - len(in_txt)
 		} else if f.Features[0].Type == "app.bsky.richtext.facet#mention" {
-			in_txt := text[f.Index.ByteStart:f.Index.ByteEnd]
+			in_txt := text[f.Index.ByteStart+offset : f.Index.ByteEnd+offset]
 			m_url := "<a href='https://htmlsky.app/profile/" + f.Features[len(f.Features)-1].DID + "'>" + in_txt + "</a>"
-			text = strings.Replace(text, in_txt, m_url, 1)
+			text = text[:f.Index.ByteStart+offset] + m_url + text[f.Index.ByteEnd+offset:]
+			offset += len(m_url) - len(in_txt)
 		}
 	}
 
