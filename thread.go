@@ -21,16 +21,16 @@ type Thread struct {
 
 type Post struct {
 	RKey        string
-	URI         string    `json:"uri"`
-	CID         string    `json:"cid"`
-	Author      Actor     `json:"author"`
-	Record      Record    `json:"record"`
-	Embed       Embed     `json:"embed"`
-	ReplyCount  int       `json:"replyCount"`
-	RepostCount int       `json:"repostCount"`
-	LikeCount   int       `json:"likeCount"`
-	IndexedAt   time.Time `json:"indexedAt"`
-	Labels      []string  `json:"labels"`
+	URI         string     `json:"uri"`
+	CID         string     `json:"cid"`
+	Author      Actor      `json:"author"`
+	Record      Record     `json:"record"`
+	Embed       util.Embed `json:"embed"`
+	ReplyCount  int        `json:"replyCount"`
+	RepostCount int        `json:"repostCount"`
+	LikeCount   int        `json:"likeCount"`
+	IndexedAt   time.Time  `json:"indexedAt"`
+	Labels      []string   `json:"labels"`
 }
 
 type Record struct {
@@ -41,17 +41,6 @@ type Record struct {
 	Reply     Reply        `json:"reply"`
 	CreatedAt time.Time    `json:"createdAt"`
 	HTML      template.HTML
-}
-
-type Embed struct {
-	Type   string  `json:"$type"`
-	Images []Image `json:"images"`
-}
-
-type Image struct {
-	Thumb    string `json:"thumb"`
-	FullSize string `json:"fullsize"`
-	Alt      string `json:"alt"`
 }
 
 type Reply struct {
