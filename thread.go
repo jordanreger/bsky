@@ -107,25 +107,25 @@ func getThread(at_uri string) Thread {
 
 	for i := range thread.Replies {
 		wg.Add(1)
-		go func() {
+		go func(i int) {
 			defer wg.Done()
 			thread.Replies[i].Post.RKey = util.GetRKey(thread.Replies[i].Post.URI)
-		}()
+		}(i)
 		wg.Add(1)
-		go func() {
+		go func(i int) {
 			defer wg.Done()
 			if thread.Replies[i].Post.Author.DisplayName == "" {
 				thread.Replies[i].Post.Author.DisplayName = thread.Replies[i].Post.Author.Handle
 			}
-		}()
+		}(i)
 		wg.Add(1)
-		go func() {
+		go func(i int) {
 			defer wg.Done()
 			thread.Replies[i].Post.Record.HTML = util.FacetsToHTML(thread.Replies[i].Post.Record.Text, thread.Replies[i].Post.Record.Facets)
-		}()
+		}(i)
 
-		wg.Wait()
 	}
+	wg.Wait()
 
 	return thread
 }

@@ -51,9 +51,8 @@ func getActorProfile(did string) Actor {
 }
 
 func getActorPage(actor Actor) string {
-	//feed := getActorFeed(actor)
 	t := template.Must(template.ParseFS(publicFiles, "public/*"))
-	//actor.Feed = feed
+	actor.Feed = getActorFeed(actor)
 	var actor_page bytes.Buffer
 	t.ExecuteTemplate(&actor_page, "actor.html", actor)
 	return actor_page.String()
