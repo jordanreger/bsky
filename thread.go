@@ -8,6 +8,8 @@ import (
 	"io"
 	"net/http"
 	"time"
+
+	"github.com/jordanreger/htmlsky/util"
 )
 
 type Thread struct {
@@ -31,35 +33,18 @@ type Post struct {
 }
 
 type Record struct {
-	Text      string    `json:"text"`
-	Type      string    `json:"$type"`
-	Langs     []string  `json:"langs"`
-	Facets    []Facet   `json:"Facets"`
-	Reply     Reply     `json:"reply"`
-	CreatedAt time.Time `json:"createdAt"`
+	Text      string       `json:"text"`
+	Type      string       `json:"$type"`
+	Langs     []string     `json:"langs"`
+	Facets    []util.Facet `json:"Facets"`
+	Reply     Reply        `json:"reply"`
+	CreatedAt time.Time    `json:"createdAt"`
 	HTML      template.HTML
 }
 
 type Embed struct {
 	Type   string  `json:"$type"`
 	Images []Image `json:"images"`
-}
-
-type Facet struct {
-	Type     string         `json:"$type"`
-	Index    FacetIndex     `json:"index"`
-	Features []FacetFeature `json:"features"`
-}
-
-type FacetIndex struct {
-	ByteEnd   int `json:"byteEnd"`
-	ByteStart int `json:"byteStart"`
-}
-
-type FacetFeature struct {
-	DID  string `json:"did"`
-	URI  string `json:"uri"`
-	Type string `json:"$type"`
 }
 
 type Image struct {
@@ -96,10 +81,10 @@ func getThread(at_uri string) Thread {
 	json.Unmarshal(b, &t_body)
 
 	thread := t_body.Thread
-	thread.Post.RKey = getRkey(thread.Post.URI)
+	thread.Post.RKey = util.GetRKey(thread.Post.URI)
 	thread.Post.Author = getActorProfile(thread.Post.Author.DID)
 
-	thread.Post.Record.HTML = parseFacets(thread.Post.Record.Text, thread.Post.Record.Facets)
+	// thread.Post.Record.HTML = util.ParseFacets(thread.Post.Record.Text, thread.Post.Record.Facets)
 
 	/*
 		for i := range thread.Replies {

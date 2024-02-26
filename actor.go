@@ -7,19 +7,22 @@ import (
 	"html/template"
 	"io"
 	"net/http"
+
+	"github.com/jordanreger/htmlsky/util"
 )
 
 type Actor struct {
-	DID            string `json:"did"`
-	Handle         string `json:"handle"`
-	DisplayName    string `json:"displayName"`
-	Description    string `json:"description"`
-	Avatar         string `json:"avatar"`
-	Banner         string `json:"banner"`
-	FollowersCount int    `json:"followersCount"`
-	FollowsCount   int    `json:"followsCount"`
-	PostsCount     int    `json:"postsCount"`
-	Feed           []FeedItem
+	DID             string `json:"did"`
+	Handle          string `json:"handle"`
+	DisplayName     string `json:"displayName"`
+	Description     string `json:"description"`
+	Avatar          string `json:"avatar"`
+	Banner          string `json:"banner"`
+	FollowersCount  int    `json:"followersCount"`
+	FollowsCount    int    `json:"followsCount"`
+	PostsCount      int    `json:"postsCount"`
+	Feed            []FeedItem
+	DescriptionHTML template.HTML
 }
 
 func getActorProfile(did string) Actor {
@@ -41,11 +44,14 @@ func getActorProfile(did string) Actor {
 	if actor.Banner == "" {
 		actor.Banner = "/banner.jpeg"
 	}
+	descriptionFacets := util.ParseFacets(actor.Description)
+	actor.DescriptionHTML = util.FacetsToHTML(actor.Description, descriptionFacets)
 
 	return actor
 }
 
-func getActorPage(actor Actor, feed Feed) string {
+func getActorPage(actor Actor) string {
+	feed := getActorFeed(actor)
 	t := template.Must(template.ParseFS(publicFiles, "public/*"))
 	actor.Feed = feed
 	var actor_page bytes.Buffer

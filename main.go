@@ -7,6 +7,8 @@ import (
 	"io/fs"
 	"log"
 	"net/http"
+
+	"github.com/jordanreger/htmlsky/util"
 )
 
 //go:embed all:public
@@ -35,17 +37,16 @@ func main() {
 	mux.HandleFunc("/profile/{handle}/", func(w http.ResponseWriter, r *http.Request) {
 		handle := r.PathValue("handle")
 
-		did := getDID(handle)
+		did := util.GetDID(handle)
 		actor := getActorProfile(did)
-		feed := getActorFeed(actor)
-		page := getActorPage(actor, feed)
+		page := getActorPage(actor)
 
 		fmt.Fprint(w, page)
 	})
 	mux.HandleFunc("/raw/profile/{handle}/", func(w http.ResponseWriter, r *http.Request) {
 		handle := r.PathValue("handle")
 
-		did := getDID(handle)
+		did := util.GetDID(handle)
 		actor := getActorProfile(did)
 		actor.Feed = getActorFeed(actor)
 		res, _ := json.MarshalIndent(actor, "", "    ")
@@ -55,7 +56,7 @@ func main() {
 	mux.HandleFunc("/embed/profile/{handle}/", func(w http.ResponseWriter, r *http.Request) {
 		handle := r.PathValue("handle")
 
-		did := getDID(handle)
+		did := util.GetDID(handle)
 		actor := getActorProfile(did)
 		feed := getActorFeed(actor)
 		page := getActorPageEmbed(actor, feed)
@@ -75,8 +76,8 @@ func main() {
 		handle := r.PathValue("handle")
 		rkey := r.PathValue("rkey")
 
-		did := getDID(handle)
-		at_uri := getPostURI(did, rkey)
+		did := util.GetDID(handle)
+		at_uri := util.GetPostURI(did, rkey)
 		thread := getThread(at_uri)
 		page := getThreadPage(thread)
 
@@ -87,8 +88,8 @@ func main() {
 		handle := r.PathValue("handle")
 		rkey := r.PathValue("rkey")
 
-		did := getDID(handle)
-		at_uri := getPostURI(did, rkey)
+		did := util.GetDID(handle)
+		at_uri := util.GetPostURI(did, rkey)
 		res, _ := json.MarshalIndent(getThread(at_uri), "", "    ")
 
 		fmt.Fprint(w, string(res))
@@ -98,8 +99,8 @@ func main() {
 		handle := r.PathValue("handle")
 		rkey := r.PathValue("rkey")
 
-		did := getDID(handle)
-		at_uri := getPostURI(did, rkey)
+		did := util.GetDID(handle)
+		at_uri := util.GetPostURI(did, rkey)
 		thread := getThread(at_uri)
 		page := getThreadPageEmbed(thread)
 

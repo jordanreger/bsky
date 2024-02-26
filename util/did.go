@@ -12,7 +12,7 @@ type did_body struct {
 	DID string `json:"did"`
 }
 
-func getDID(handle string) string {
+func GetDID(handle string) string {
 	// if handle is DID just return it
 	if strings.Contains(handle, "did:") {
 		return handle
