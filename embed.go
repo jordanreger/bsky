@@ -5,9 +5,9 @@ import (
 	"html/template"
 )
 
-func getActorPageEmbed(actor Actor, feed Feed) string {
+func getActorPageEmbed(actor Actor) string {
 	t := template.Must(template.ParseFS(publicFiles, "public/*"))
-	actor.Feed = feed
+	actor.Feed = getActorFeed(actor)
 	var actor_page bytes.Buffer
 	t.ExecuteTemplate(&actor_page, "actor.embed.html", actor)
 	return actor_page.String()

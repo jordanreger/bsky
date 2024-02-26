@@ -37,14 +37,14 @@ func ParseMentions(raw string) []Facet {
 
 		mentions = append(mentions,
 			Facet{
-				Type: "app.bsky.richtext.facet#mention",
 				Index: FacetIndex{
 					ByteStart: bytes.Index(rawBytes, []byte(m)),
 					ByteEnd:   bytes.Index(rawBytes, []byte(m)) + len(m),
 				},
 				Features: []FacetFeature{
 					{
-						DID: did,
+						Type: "app.bsky.richtext.facet#mention",
+						DID:  did,
 					},
 				},
 			},
@@ -66,14 +66,14 @@ func ParseURLs(raw string) []Facet {
 		if !emailRegex.MatchString(u) {
 			urls = append(urls,
 				Facet{
-					Type: "app.bsky.richtext.facet#link",
 					Index: FacetIndex{
 						ByteStart: bytes.Index(rawBytes, []byte(u)),
 						ByteEnd:   bytes.Index(rawBytes, []byte(u)) + len(u),
 					},
 					Features: []FacetFeature{
 						{
-							URI: "https://" + string(u),
+							Type: "app.bsky.richtext.facet#link",
+							URI:  "https://" + string(u),
 						},
 					},
 				},
@@ -94,14 +94,19 @@ func ParseFacets(text string) []Facet {
 }
 
 func FacetsToHTML(text string, facets []Facet) template.HTML {
+	if len(facets) == 0 {
+		return template.HTML(text)
+	}
+	linkFacet := "app.bsky.richtext.facet#link"
+	mentionFacet := "app.bsky.richtext.facet#mention"
 	offset := 0
 	for _, f := range facets {
-		if f.Type == "app.bsky.richtext.facet#link" {
+		if f.Features[0].Type == linkFacet {
 			in_txt := text[f.Index.ByteStart+offset : f.Index.ByteEnd+offset]
 			m_url := "<a href='" + f.Features[len(f.Features)-1].URI + "'>" + in_txt + "</a>"
 			text = text[:f.Index.ByteStart+offset] + m_url + text[f.Index.ByteEnd+offset:]
 			offset += len(m_url) - len(in_txt)
-		} else if f.Type == "app.bsky.richtext.facet#mention" {
+		} else if f.Features[0].Type == mentionFacet {
 			in_txt := text[f.Index.ByteStart+offset : f.Index.ByteEnd+offset]
 			m_url := "<a href='https://htmlsky.app/profile/" + f.Features[len(f.Features)-1].DID + "'>" + in_txt + "</a>"
 			text = text[:f.Index.ByteStart+offset] + m_url + text[f.Index.ByteEnd+offset:]
@@ -109,8 +114,5 @@ func FacetsToHTML(text string, facets []Facet) template.HTML {
 		}
 	}
 
-	res := template.HTML(text)
-
-	return res
-
+	return template.HTML(text)
 }

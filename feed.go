@@ -33,6 +33,8 @@ func getActorFeed(actor Actor) Feed {
 	feed := f_body.Feed
 	for i := range feed {
 		feed[i].Post.RKey = util.GetRKey(feed[i].Post.URI)
+		postFacets := util.ParseFacets(feed[i].Post.Record.Text)
+		feed[i].Post.Record.HTML = util.FacetsToHTML(feed[i].Post.Record.Text, postFacets)
 	}
 
 	return feed

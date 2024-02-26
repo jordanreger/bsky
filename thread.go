@@ -7,6 +7,7 @@ import (
 	"html/template"
 	"io"
 	"net/http"
+	"sync"
 	"time"
 
 	"github.com/jordanreger/htmlsky/util"
@@ -81,17 +82,50 @@ func getThread(at_uri string) Thread {
 	json.Unmarshal(b, &t_body)
 
 	thread := t_body.Thread
-	thread.Post.RKey = util.GetRKey(thread.Post.URI)
-	thread.Post.Author = getActorProfile(thread.Post.Author.DID)
 
-	// thread.Post.Record.HTML = util.ParseFacets(thread.Post.Record.Text, thread.Post.Record.Facets)
+	var wg sync.WaitGroup
 
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		thread.Post.RKey = util.GetRKey(thread.Post.URI)
+	}()
 	/*
-		for i := range thread.Replies {
-			thread.Replies[i].Post.Author = getActorProfile(thread.Replies[i].Post.Author.DID)
-			thread.Replies[i].Post.RKey = getRkey(thread.Replies[i].Post.URI)
-		}
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			thread.Post.Author = getActorProfile(thread.Post.Author.DID)
+		}()
 	*/
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		thread.Post.Record.HTML = util.FacetsToHTML(thread.Post.Record.Text, thread.Post.Record.Facets)
+	}()
+
+	wg.Wait()
+
+	for i := range thread.Replies {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			thread.Replies[i].Post.RKey = util.GetRKey(thread.Replies[i].Post.URI)
+		}()
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			if thread.Replies[i].Post.Author.DisplayName == "" {
+				thread.Replies[i].Post.Author.DisplayName = thread.Replies[i].Post.Author.Handle
+			}
+		}()
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+			thread.Replies[i].Post.Record.HTML = util.FacetsToHTML(thread.Replies[i].Post.Record.Text, thread.Replies[i].Post.Record.Facets)
+		}()
+
+		wg.Wait()
+	}
 
 	return thread
 }
