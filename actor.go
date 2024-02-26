@@ -44,6 +44,9 @@ func getActorProfile(did string) Actor {
 	if actor.Banner == "" {
 		actor.Banner = "/banner.jpeg"
 	}
+
+	actor.Feed = getActorFeed(actor)
+
 	descriptionFacets := util.ParseFacets(actor.Description)
 	actor.DescriptionHTML = util.FacetsToHTML(actor.Description, descriptionFacets)
 
