@@ -117,6 +117,12 @@ func getThread(at_uri string) Thread {
 			if thread.Replies[i].Post.Author.DisplayName == "" {
 				thread.Replies[i].Post.Author.DisplayName = thread.Replies[i].Post.Author.Handle
 			}
+			if thread.Replies[i].Post.Author.Avatar == "" {
+				thread.Replies[i].Post.Author.Avatar = "/avatar.jpeg"
+			}
+			if thread.Replies[i].Post.Author.Banner == "" {
+				thread.Replies[i].Post.Author.Banner = "/banner.jpeg"
+			}
 		}(i)
 		wg.Add(1)
 		go func(i int) {

@@ -1,5 +1,6 @@
 {{define "actor"}}
-
+<!DOCTYPE html>
+<html lang="en">
 {{template "actor_head" .}}
 <body style="max-width:650px;margin:0 auto;padding:5px;">
 	{{template "actor_header" .}}
@@ -7,8 +8,8 @@
 	<!-- user profile -->
 	<article>
 		<div style="position:relative;margin-bottom:50px;">
-			<img src="{{.Banner}}" style="position:relative;aspect-ratio:3/1;max-width:100%;">
-			<img src="{{.Avatar}}" style="width:100px;border-radius:50%;position:absolute;left:10px;bottom:-50px;">
+			<img src="{{.Banner}}" alt="{{.DisplayName}}'s banner" style="position:relative;aspect-ratio:3/1;max-width:100%;">
+			<img src="{{.Avatar}}" alt="{{.DisplayName}}'s avatar" style="width:100px;border-radius:50%;position:absolute;left:10px;bottom:-50px;">
 		</div>
 		<h1 style="margin-bottom:0;">{{.DisplayName}}</h1>
 		<p style="margin:auto 0;" class="handle">@{{.Handle}}</p>
@@ -21,11 +22,11 @@
     	<span id="feed"></span>
 		<article>
 			{{if ne .Post.Author.DID $.DID}}
-			<p style="margin:0;margin-left:60px;margin-bottom:5px;" class="repost"><b>Reposted by <a href="/profile/{{$.Handle}}">{{$.DisplayName}}</a></b></p>
+			<p style="margin:0;margin-left:60px;margin-bottom:5px;" class="repost"><b>Reposted by <a href="/profile/{{$.Handle}}">{{.DisplayName}}</a></b></p>
 			{{end}}
 				<a href="/profile/{{.Post.Author.Handle}}/post/{{.Post.RKey}}" style="color:inherit;text-decoration:none;">
                 <div>
-					<img src="{{.Post.Author.Avatar}}" style="width:50px;border-radius:50%;float:left;margin-right:10px;padding:0;">
+					<img src="{{.Post.Author.Avatar}}" alt="{{.Post.Author.DisplayName}}'s avatar" style="width:50px;border-radius:50%;float:left;margin-right:10px;padding:0;">
                     <p style="margin:0;">
                         <b>{{.Post.Author.DisplayName}}</b>
                         <span class="handle">@{{.Post.Author.Handle}}</span>
@@ -49,7 +50,7 @@
 			<hr>
     {{end}}
 </body>
-
+</html>
 {{end}}
 
 {{template "actor" .}}
