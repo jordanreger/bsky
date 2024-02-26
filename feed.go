@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+
+	"github.com/jordanreger/htmlsky/util"
 )
 
 type Feed = []FeedItem
@@ -30,7 +32,7 @@ func getActorFeed(actor Actor) Feed {
 
 	feed := f_body.Feed
 	for i := range feed {
-		feed[i].Post.RKey = getRkey(feed[i].Post.URI)
+		feed[i].Post.RKey = util.GetRKey(feed[i].Post.URI)
 	}
 
 	return feed

@@ -1,12 +1,12 @@
-package main
+package util
 
 import "strings"
 
-func getPostURI(did string, rkey string) string {
+func GetPostURI(did string, rkey string) string {
 	return "at://" + did + "/app.bsky.feed.post/" + rkey
 }
 
-func getRkey(uri string) string {
+func GetRKey(uri string) string {
 	split := strings.Split(uri, "/")
 	return split[len(split)-1]
 }
