@@ -22,7 +22,7 @@
     	<span id="feed"></span>
 		<article>
 			{{if ne .Post.Author.DID $.DID}}
-			<p style="margin:0;margin-left:60px;margin-bottom:5px;" class="repost"><b>Reposted by <a href="/profile/{{$.Handle}}">{{.DisplayName}}</a></b></p>
+			<p style="margin:0;margin-left:60px;margin-bottom:5px;" class="repost"><b>Reposted by <a href="/profile/{{$.Handle}}">{{$.DisplayName}}</a></b></p>
 			{{end}}
 				<a href="/profile/{{.Post.Author.Handle}}/post/{{.Post.RKey}}" style="color:inherit;text-decoration:none;">
                 <div>
