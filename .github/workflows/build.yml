@@ -20,7 +20,7 @@ jobs:
       run: go mod verify
 
     - name: Build
-      run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v ./...
+      run: CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -v ./web/...
     
     - name: Copy to server
       uses: appleboy/scp-action@master

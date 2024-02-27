@@ -5,30 +5,14 @@ import (
 	"html/template"
 	"regexp"
 	"strings"
+
+	"github.com/jordanreger/htmlsky/types"
 )
-
-type Facet struct {
-	// This field is slightly modified because Bluesky doesn't use it consistently
-	Type     string         `json:"$type"`
-	Index    FacetIndex     `json:"index"`
-	Features []FacetFeature `json:"features"`
-}
-
-type FacetIndex struct {
-	ByteEnd   int `json:"byteEnd"`
-	ByteStart int `json:"byteStart"`
-}
-
-type FacetFeature struct {
-	DID  string `json:"did"`
-	URI  string `json:"uri"`
-	Type string `json:"$type"`
-}
 
 var handleRegex = regexp.MustCompile(`[$|\W](@([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)`)
 
-func ParseMentions(raw string) []Facet {
-	var mentions []Facet
+func ParseMentions(raw string) []types.Facet {
+	var mentions []types.Facet
 
 	rawBytes := []byte(raw)
 
@@ -36,12 +20,12 @@ func ParseMentions(raw string) []Facet {
 		did := GetDID(strings.Split(m, "@")[1])
 
 		mentions = append(mentions,
-			Facet{
-				Index: FacetIndex{
+			types.Facet{
+				Index: types.FacetIndex{
 					ByteStart: bytes.Index(rawBytes, []byte(m)),
 					ByteEnd:   bytes.Index(rawBytes, []byte(m)) + len(m),
 				},
-				Features: []FacetFeature{
+				Features: []types.FacetFeature{
 					{
 						Type: "app.bsky.richtext.facet#mention",
 						DID:  did,
@@ -57,20 +41,20 @@ func ParseMentions(raw string) []Facet {
 var urlRegex = regexp.MustCompile(`[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)`)
 var emailRegex = regexp.MustCompile(`.*@.*`)
 
-func ParseURLs(raw string) []Facet {
-	var urls []Facet
+func ParseURLs(raw string) []types.Facet {
+	var urls []types.Facet
 
 	rawBytes := []byte(raw)
 
 	for _, u := range urlRegex.FindAllString(raw, -1) {
 		if !emailRegex.MatchString(u) {
 			urls = append(urls,
-				Facet{
-					Index: FacetIndex{
+				types.Facet{
+					Index: types.FacetIndex{
 						ByteStart: bytes.Index(rawBytes, []byte(u)),
 						ByteEnd:   bytes.Index(rawBytes, []byte(u)) + len(u),
 					},
-					Features: []FacetFeature{
+					Features: []types.FacetFeature{
 						{
 							Type: "app.bsky.richtext.facet#link",
 							URI:  "https://" + string(u),
@@ -83,8 +67,8 @@ func ParseURLs(raw string) []Facet {
 	return urls
 }
 
-func ParseFacets(text string) []Facet {
-	var facets []Facet
+func ParseFacets(text string) []types.Facet {
+	var facets []types.Facet
 
 	facets = append(facets, ParseURLs(text)...)
 
@@ -93,7 +77,7 @@ func ParseFacets(text string) []Facet {
 	return facets
 }
 
-func FacetsToHTML(text string, facets []Facet) template.HTML {
+func FacetsToHTML(text string, facets []types.Facet) template.HTML {
 	if len(facets) == 0 {
 		return template.HTML(text)
 	}

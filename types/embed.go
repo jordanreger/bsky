@@ -1,4 +1,4 @@
-package util
+package types
 
 type Embed struct {
 	Type string `json:"$type"`

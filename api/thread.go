@@ -1,66 +1,21 @@
-package main
+package api
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
-	"html/template"
 	"io"
 	"net/http"
 	"sync"
-	"time"
 
+	"github.com/jordanreger/htmlsky/types"
 	"github.com/jordanreger/htmlsky/util"
 )
 
-type Thread struct {
-	Type    string   `json:"$type"`
-	Post    Post     `json:"post"`
-	Replies []Thread `json:"replies"`
-}
-
-type Post struct {
-	RKey        string
-	URI         string     `json:"uri"`
-	CID         string     `json:"cid"`
-	Author      Actor      `json:"author"`
-	Record      Record     `json:"record"`
-	Embed       util.Embed `json:"embed"`
-	ReplyCount  int        `json:"replyCount"`
-	RepostCount int        `json:"repostCount"`
-	LikeCount   int        `json:"likeCount"`
-	IndexedAt   time.Time  `json:"indexedAt"`
-	Labels      []string   `json:"labels"`
-}
-
-type Record struct {
-	Text      string       `json:"text"`
-	Type      string       `json:"$type"`
-	Langs     []string     `json:"langs"`
-	Facets    []util.Facet `json:"Facets"`
-	Reply     Reply        `json:"reply"`
-	CreatedAt time.Time    `json:"createdAt"`
-	HTML      template.HTML
-}
-
-type Reply struct {
-	Root   ReplyRoot   `json:"root"`
-	Parent ReplyParent `json:"parent"`
-}
-type ReplyRoot struct {
-	CID string `json:"cid"`
-	URI string `json:"uri"`
-}
-type ReplyParent struct {
-	CID string `json:"cid"`
-	URI string `json:"uri"`
-}
-
 type t_res struct {
-	Thread Thread
+	Thread types.Thread
 }
 
-func getThread(at_uri string) Thread {
+func GetThread(at_uri string) types.Thread {
 	res, err := http.Get("https://api.bsky.app/xrpc/app.bsky.feed.getPostThread?uri=" + at_uri)
 	if err != nil {
 		fmt.Println(err)
@@ -123,11 +78,4 @@ func getThread(at_uri string) Thread {
 	wg.Wait()
 
 	return thread
-}
-
-func getThreadPage(thread Thread) string {
-	t := template.Must(template.ParseFS(publicFiles, "public/*"))
-	var thread_page bytes.Buffer
-	t.ExecuteTemplate(&thread_page, "thread.html", thread)
-	return thread_page.String()
 }
