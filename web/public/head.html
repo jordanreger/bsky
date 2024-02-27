@@ -17,7 +17,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, shrink-to-fit=no" />
-    <title>{{.Post.Author.DisplayName}}: "{{.Post.Record.Text}}"</title>
+    <title>{{.Post.Author.DisplayName}}{{if .Post.Record.Text}}: "{{.Post.Record.Text}}"{{end}}</title>
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://htmlsky.app/profile/{{.Post.Author.Handle}}/post/{{.Post.RKey}}" />
     <meta name="twitter:card" content="summary_large_image">
