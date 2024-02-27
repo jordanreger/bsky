@@ -1,0 +1,36 @@
+{{define "actor_head"}}
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, shrink-to-fit=no" />
+	<title>{{.DisplayName}} (@{{.Handle}})</title>
+    <meta property="og:title" content="{{.DisplayName}} (@{{.Handle}})" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://htmlsky.app/profile/{{.Handle}}" />
+    <meta property="og:image" content="{{.Avatar}}" />
+    <meta property="og:description" content="{{.Description}}" />
+	<meta name="theme-color" content="dodgerblue">
+	<link rel="stylesheet" href="/style.css">
+</head>
+{{end}}
+
+{{define "thread_head"}}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, shrink-to-fit=no" />
+    <title>{{.Post.Author.DisplayName}}: "{{.Post.Record.Text}}"</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://htmlsky.app/profile/{{.Post.Author.Handle}}/post/{{.Post.RKey}}" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="{{.Post.Author.Avatar}}" />
+    <meta property="og:description" content="{{.Post.Record.Text}}" />
+    <meta name="theme-color" content="dodgerblue">
+    <link rel="stylesheet" href="/style.css">
+</head>
+{{end}}
+
+{{define "embed_head"}}
+<head>
+    <base target="_blank">
+</head>
+<style>header{display:none;}</style>
+{{end}}
