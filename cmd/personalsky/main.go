@@ -2,7 +2,6 @@ package main
 
 import (
 	"embed"
-	"encoding/json"
 	"fmt"
 	"io/fs"
 	"log"
@@ -12,6 +11,7 @@ import (
 	"github.com/jordanreger/htmlsky/util"
 )
 
+/* SET THIS BEFORE BUILDING */
 var handle = "did:plc:27rjcwbur2bizjjx3zakeme5"
 
 //go:embed all:public
@@ -23,14 +23,11 @@ func main() {
 	mux := http.NewServeMux()
 
 	/* REDIRECTS */
-	// redirect if {post} is empty
-	mux.HandleFunc("/{post}/", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/", http.StatusSeeOther)
-	})
 
-	/* ROUTES */
-
-	mux.HandleFunc("/", func(w http.ResponseWriter r *http.Request) {
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" {
+			http.ServeFileFS(w, r, public, r.URL.Path)
+		}
 		did := util.GetDID(handle)
 		actor := api.GetActorProfile(did)
 		page := GetActorPage(actor)
@@ -49,9 +46,6 @@ func main() {
 
 		fmt.Fprint(w, page)
 	})
-
-	// static
-	mux.Handle("/", http.FileServer(http.FS(public)))
 
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }

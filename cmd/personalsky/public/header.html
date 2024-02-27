@@ -1,7 +1,7 @@
 {{define "actor_header"}}
 <header style="padding-top:10px;">
     <a href="https://bsky.app/profile/{{.DID}}"><span style="float:right;">&#8599;</span></a>
-    <a href="/"><span style="float:left;">&#129419;</span></a>
+    <a href="/"><span style="float:left;">{{.DisplayName}}</span></a>
     <hr style="clear:both;margin-top:25px;">
 </header>
 {{end}}
@@ -9,7 +9,7 @@
 {{define "thread_header"}}
 <header style="padding-top:10px;">
     <a href="https://bsky.app/profile/{{.Post.Author.DID}}/post/{{.Post.RKey}}/"><span style="float:right;">&#8599;</span></a>
-    <a href="/"><span style="float:left;">&#129419;</span></a>
+    <a href="/"><span style="float:left;">&larr;</span></a>
     <hr style="clear:both;margin-top:25px;">
 </header>
 {{end}}
