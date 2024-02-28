@@ -27,12 +27,17 @@ func main() {
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
 			http.ServeFileFS(w, r, public, r.URL.Path)
+			return
 		}
 		did := util.GetDID(handle)
 		actor := api.GetActorProfile(did)
 		page := GetActorPage(actor)
 
 		fmt.Fprint(w, page)
+	})
+
+	mux.HandleFunc("/.well-known/atproto-did", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprint(w, handle)
 	})
 
 	// thread
