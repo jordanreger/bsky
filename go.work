@@ -2,7 +2,9 @@ go 1.22.0
 
 use (
 	./api
-	./cmd/personalsky
+	// See #24
+	// ./cmd/personalsky
+	
 	./types
 	./util
 	./web

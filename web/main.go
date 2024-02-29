@@ -34,26 +34,25 @@ func main() {
 	})
 
 	/* REDIRECTS */
-
-	// redirect if path is just /*/
 	mux.HandleFunc("/raw/", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		fmt.Fprint(w, "Usage: /raw/profile/{handle}[/post/{rkey}]")
+	})
+	mux.HandleFunc("/raw/{handle}/", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/raw/", http.StatusSeeOther)
+	})
+	mux.HandleFunc("/raw/profile/{handle}/{rkey}/", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/raw/", http.StatusSeeOther)
 	})
 	mux.HandleFunc("/embed/", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		fmt.Fprint(w, "Usage: /embed/profile/{handle}[/post/{rkey}]")
 	})
-	// redirect if {handle} is empty
+	mux.HandleFunc("/embed/{handle}/", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/embed/", http.StatusSeeOther)
+	})
 	mux.HandleFunc("/profile/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 	})
-	mux.HandleFunc("/raw/profile/", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/", http.StatusSeeOther)
-	})
-	// redirect if {post} is empty
-	mux.HandleFunc("/profile/{handle}/{post}/", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/", http.StatusSeeOther)
-	})
-	mux.HandleFunc("/raw/profile/{handle}/post/", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/profile/{handle}/{rkey}/", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 	})
 
