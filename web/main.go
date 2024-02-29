@@ -75,6 +75,7 @@ func main() {
 		actor := api.GetActorProfile(did)
 		res, _ := json.MarshalIndent(actor, "", "    ")
 
+		w.Header().Add("Content-Type", "application/json")
 		fmt.Fprint(w, string(res))
 	})
 	mux.HandleFunc("/embed/profile/{handle}/", func(w http.ResponseWriter, r *http.Request) {
@@ -108,6 +109,7 @@ func main() {
 		at_uri := util.GetPostURI(did, rkey)
 		res, _ := json.MarshalIndent(api.GetThread(at_uri), "", "    ")
 
+		w.Header().Add("Content-Type", "application/json")
 		fmt.Fprint(w, string(res))
 	})
 

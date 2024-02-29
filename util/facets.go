@@ -71,7 +71,6 @@ func ParseFacets(text string) []types.Facet {
 	var facets []types.Facet
 
 	facets = append(facets, ParseURLs(text)...)
-
 	facets = append(facets, ParseMentions(text)...)
 
 	return facets

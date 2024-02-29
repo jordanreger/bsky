@@ -1,1 +1,0 @@
-See [#24](https://github.com/jordanreger/htmlsky/issues/24)
