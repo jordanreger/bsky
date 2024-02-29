@@ -78,6 +78,7 @@ func ParseFacets(text string) []types.Facet {
 }
 
 func FacetsToHTML(text string, facets []types.Facet) template.HTML {
+	text = Sanitize(text)
 	if len(facets) == 0 {
 		return template.HTML(text)
 	}

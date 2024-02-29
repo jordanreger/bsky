@@ -20,6 +20,19 @@ var public, _ = fs.Sub(publicFS, "public")
 func main() {
 	mux := http.NewServeMux()
 
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != "/" {
+			http.ServeFileFS(w, r, public, r.URL.Path)
+			return
+		}
+		handle := "htmlsky.app"
+		did := util.GetDID(handle)
+		actor := api.GetActorProfile(did)
+		page := GetActorPage(actor)
+
+		fmt.Fprint(w, page)
+	})
+
 	/* REDIRECTS */
 
 	// redirect if path is just /*/
@@ -110,9 +123,6 @@ func main() {
 
 		fmt.Fprint(w, page)
 	})
-
-	// static
-	mux.Handle("/", http.FileServer(http.FS(public)))
 
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }
