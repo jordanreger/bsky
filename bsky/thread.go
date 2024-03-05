@@ -1,21 +1,66 @@
-package api
+package bsky
 
 import (
 	"encoding/json"
 	"fmt"
+	"html/template"
 	"io"
 	"net/http"
 	"sync"
+	"time"
 
-	"github.com/jordanreger/htmlsky/types"
 	"github.com/jordanreger/htmlsky/util"
 )
 
-type t_res struct {
-	Thread types.Thread
+type Thread struct {
+	Type    string   `json:"$type"`
+	Post    Post     `json:"post"`
+	Replies []Thread `json:"replies"`
 }
 
-func GetThread(at_uri string) types.Thread {
+type Post struct {
+	RKey        string
+	URI         string    `json:"uri"`
+	CID         string    `json:"cid"`
+	Author      *Actor    `json:"author"`
+	Record      Record    `json:"record"`
+	Embed       Embed     `json:"embed"`
+	ReplyCount  int       `json:"replyCount"`
+	RepostCount int       `json:"repostCount"`
+	LikeCount   int       `json:"likeCount"`
+	IndexedAt   time.Time `json:"indexedAt"`
+	Labels      []string  `json:"labels"`
+}
+
+type Record struct {
+	Text      string        `json:"text"`
+	Type      string        `json:"$type"`
+	Langs     []string      `json:"langs"`
+	Embed     *Embed        `json:"embed"`
+	Facets    []Facet       `json:"facets"`
+	Reply     *Reply        `json:"reply"`
+	CreatedAt time.Time     `json:"createdAt"`
+	HTML      template.HTML `json:"html"`
+}
+
+type Reply struct {
+	Root   ReplyRoot   `json:"root"`
+	Parent ReplyParent `json:"parent"`
+}
+type ReplyRoot struct {
+	CID string `json:"cid"`
+	URI string `json:"uri"`
+}
+type ReplyParent struct {
+	CID string `json:"cid"`
+	URI string `json:"uri"`
+}
+
+type t_res struct {
+	Thread Thread
+}
+
+func GetThread(at_uri string) Thread {
 	res, err := http.Get("https://api.bsky.app/xrpc/app.bsky.feed.getPostThread?uri=" + at_uri)
 	if err != nil {
 		fmt.Println(err)

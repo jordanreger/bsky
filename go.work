@@ -1,11 +1,10 @@
 go 1.22.0
 
 use (
-	./api
+	./bsky
 	// See #24
 	// ./cmd/personalsky
 	
-	./types
 	./util
 	./web
 )

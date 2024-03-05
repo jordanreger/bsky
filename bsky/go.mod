@@ -1,4 +1,4 @@
-module github.com/jordanreger/htmlsky/api
+module github.com/jordanreger/htmlsky/bsky
 
 go 1.22.0
 

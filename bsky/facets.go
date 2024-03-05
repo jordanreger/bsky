@@ -1,4 +1,4 @@
-package types
+package bsky
 
 type Facet struct {
 	Type     string         `json:"$type"`
@@ -12,7 +12,7 @@ type FacetIndex struct {
 }
 
 type FacetFeature struct {
-	DID  string `json:"did,omitempty"`
-	URI  string `json:"uri,omitempty"`
+	DID  string `json:"did"`
+	URI  string `json:"uri"`
 	Type string `json:"$type"`
 }

@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"html/template"
 
-	"github.com/jordanreger/htmlsky/types"
+	"github.com/jordanreger/htmlsky/bsky"
 )
 
-func GetThreadPage(thread types.Thread) string {
+func GetThreadPage(thread bsky.Thread) string {
 	t := template.Must(template.ParseFS(publicFiles, "public/*"))
 	var thread_page bytes.Buffer
 

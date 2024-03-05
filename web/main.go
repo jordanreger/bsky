@@ -8,7 +8,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/jordanreger/htmlsky/api"
+	"github.com/jordanreger/htmlsky/bsky"
 	"github.com/jordanreger/htmlsky/util"
 )
 
@@ -27,7 +27,7 @@ func main() {
 		}
 		handle := "htmlsky.app"
 		did := util.GetDID(handle)
-		actor := api.GetActorProfile(did)
+		actor := bsky.GetActorProfile(did)
 		page := GetActorPage(actor)
 
 		fmt.Fprint(w, page)
@@ -63,7 +63,7 @@ func main() {
 		handle := r.PathValue("handle")
 
 		did := util.GetDID(handle)
-		actor := api.GetActorProfile(did)
+		actor := bsky.GetActorProfile(did)
 		page := GetActorPage(actor)
 
 		fmt.Fprint(w, page)
@@ -72,7 +72,7 @@ func main() {
 		handle := r.PathValue("handle")
 
 		did := util.GetDID(handle)
-		actor := api.GetActorProfile(did)
+		actor := bsky.GetActorProfile(did)
 		res, _ := json.MarshalIndent(actor, "", "    ")
 
 		w.Header().Add("Content-Type", "application/json")
@@ -82,7 +82,7 @@ func main() {
 		handle := r.PathValue("handle")
 
 		did := util.GetDID(handle)
-		actor := api.GetActorProfile(did)
+		actor := bsky.GetActorProfile(did)
 		page := GetActorPageEmbed(actor)
 
 		fmt.Fprint(w, page)
@@ -95,7 +95,7 @@ func main() {
 
 		did := util.GetDID(handle)
 		at_uri := util.GetPostURI(did, rkey)
-		thread := api.GetThread(at_uri)
+		thread := bsky.GetThread(at_uri)
 		page := GetThreadPage(thread)
 
 		fmt.Fprint(w, page)
@@ -107,7 +107,7 @@ func main() {
 
 		did := util.GetDID(handle)
 		at_uri := util.GetPostURI(did, rkey)
-		res, _ := json.MarshalIndent(api.GetThread(at_uri), "", "    ")
+		res, _ := json.MarshalIndent(bsky.GetThread(at_uri), "", "    ")
 
 		w.Header().Add("Content-Type", "application/json")
 		fmt.Fprint(w, string(res))
@@ -119,7 +119,7 @@ func main() {
 
 		did := util.GetDID(handle)
 		at_uri := util.GetPostURI(did, rkey)
-		thread := api.GetThread(at_uri)
+		thread := bsky.GetThread(at_uri)
 		page := GetThreadPageEmbed(thread)
 
 		fmt.Fprint(w, page)

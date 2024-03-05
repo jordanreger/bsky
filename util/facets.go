@@ -6,13 +6,13 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/jordanreger/htmlsky/types"
+	"github.com/jordanreger/htmlsky/bsky"
 )
 
 var handleRegex = regexp.MustCompile(`[$|\W](@([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)`)
 
-func ParseMentions(raw string) []types.Facet {
-	var mentions []types.Facet
+func ParseMentions(raw string) []bsky.Facet {
+	var mentions []bsky.Facet
 
 	rawBytes := []byte(raw)
 
@@ -20,12 +20,12 @@ func ParseMentions(raw string) []types.Facet {
 		did := GetDID(strings.Split(m, "@")[1])
 
 		mentions = append(mentions,
-			types.Facet{
-				Index: types.FacetIndex{
+			bsky.Facet{
+				Index: bsky.FacetIndex{
 					ByteStart: bytes.Index(rawBytes, []byte(m)),
 					ByteEnd:   bytes.Index(rawBytes, []byte(m)) + len(m),
 				},
-				Features: []types.FacetFeature{
+				Features: []bsky.FacetFeature{
 					{
 						Type: "app.bsky.richtext.facet#mention",
 						DID:  did,
@@ -41,20 +41,20 @@ func ParseMentions(raw string) []types.Facet {
 var urlRegex = regexp.MustCompile(`[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)`)
 var emailRegex = regexp.MustCompile(`.*@.*`)
 
-func ParseURLs(raw string) []types.Facet {
-	var urls []types.Facet
+func ParseURLs(raw string) []bsky.Facet {
+	var urls []bsky.Facet
 
 	rawBytes := []byte(raw)
 
 	for _, u := range urlRegex.FindAllString(raw, -1) {
 		if !emailRegex.MatchString(u) {
 			urls = append(urls,
-				types.Facet{
-					Index: types.FacetIndex{
+				bsky.Facet{
+					Index: bsky.FacetIndex{
 						ByteStart: bytes.Index(rawBytes, []byte(u)),
 						ByteEnd:   bytes.Index(rawBytes, []byte(u)) + len(u),
 					},
-					Features: []types.FacetFeature{
+					Features: []bsky.FacetFeature{
 						{
 							Type: "app.bsky.richtext.facet#link",
 							URI:  "https://" + string(u),
@@ -67,8 +67,8 @@ func ParseURLs(raw string) []types.Facet {
 	return urls
 }
 
-func ParseFacets(text string) []types.Facet {
-	var facets []types.Facet
+func ParseFacets(text string) []bsky.Facet {
+	var facets []bsky.Facet
 
 	facets = append(facets, ParseURLs(text)...)
 	facets = append(facets, ParseMentions(text)...)
@@ -76,7 +76,7 @@ func ParseFacets(text string) []types.Facet {
 	return facets
 }
 
-func FacetsToHTML(text string, facets []types.Facet) template.HTML {
+func FacetsToHTML(text string, facets []bsky.Facet) template.HTML {
 	text = Sanitize(text)
 	if len(facets) == 0 {
 		return template.HTML(text)

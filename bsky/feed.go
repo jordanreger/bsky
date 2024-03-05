@@ -1,4 +1,4 @@
-package api
+package bsky
 
 import (
 	"encoding/json"
@@ -7,16 +7,21 @@ import (
 	"net/http"
 	"sync"
 
-	"github.com/jordanreger/htmlsky/types"
 	"github.com/jordanreger/htmlsky/util"
 )
 
-type f_res struct {
-	Feed   types.Feed `json:"feed"`
-	Cursor string     `json:"cursor"`
+type Feed = []FeedItem
+
+type FeedItem struct {
+	Post Post `json:"post"`
 }
 
-func GetActorFeed(actor types.Actor) types.Feed {
+type f_res struct {
+	Feed   Feed   `json:"feed"`
+	Cursor string `json:"cursor"`
+}
+
+func GetActorFeed(actor Actor) Feed {
 	res, err := http.Get("https://api.bsky.app/xrpc/app.bsky.feed.getAuthorFeed?actor=" + actor.DID)
 	if err != nil {
 		fmt.Println(err)
