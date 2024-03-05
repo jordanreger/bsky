@@ -29,7 +29,12 @@ hr {
 }
 
 body {
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 10px 15px;
     font-family: system-ui, sans-serif;
+    border-left: 1px solid var(--secondary);
+    border-right: 1px solid var(--secondary);
 }
 
 code, pre {
