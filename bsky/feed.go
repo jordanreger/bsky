@@ -45,7 +45,7 @@ func GetActorFeed(actor Actor) Feed {
 		wg.Add(1)
 		go func(i int) {
 			defer wg.Done()
-			feed[i].Post.Record.HTML = util.FacetsToHTML(feed[i].Post.Record.Text, feed[i].Post.Record.Facets)
+			feed[i].Post.Record.HTML = FacetsToHTML(feed[i].Post.Record.Text, feed[i].Post.Record.Facets)
 		}(i)
 	}
 

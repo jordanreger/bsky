@@ -89,7 +89,7 @@ func GetThread(at_uri string) Thread {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
-		thread.Post.Record.HTML = util.FacetsToHTML(thread.Post.Record.Text, thread.Post.Record.Facets)
+		thread.Post.Record.HTML = FacetsToHTML(thread.Post.Record.Text, thread.Post.Record.Facets)
 	}()
 
 	wg.Wait()
@@ -116,7 +116,7 @@ func GetThread(at_uri string) Thread {
 		wg.Add(1)
 		go func(i int) {
 			defer wg.Done()
-			thread.Replies[i].Post.Record.HTML = util.FacetsToHTML(thread.Replies[i].Post.Record.Text, thread.Replies[i].Post.Record.Facets)
+			thread.Replies[i].Post.Record.HTML = FacetsToHTML(thread.Replies[i].Post.Record.Text, thread.Replies[i].Post.Record.Facets)
 		}(i)
 
 	}
