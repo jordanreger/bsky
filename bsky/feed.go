@@ -5,16 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"sync"
-
-	"github.com/jordanreger/htmlsky/util"
 )
-
-type Feed = []FeedItem
-
-type FeedItem struct {
-	Post Post `json:"post"`
-}
 
 type f_res struct {
 	Feed   Feed   `json:"feed"`
@@ -33,23 +24,19 @@ func GetActorFeed(actor Actor) Feed {
 
 	feed := f_body.Feed
 
-	var wg sync.WaitGroup
+	/*
+		var wg sync.WaitGroup
 
-	for i := range feed {
-		wg.Add(1)
-		go func(i int) {
-			defer wg.Done()
-			feed[i].Post.RKey = util.GetRKey(feed[i].Post.URI)
-		}(i)
+		for i := range feed {
+			wg.Add(1)
+			go func(i int) {
+				defer wg.Done()
+				feed[i].Post.RKey = util.GetRKey(feed[i].Post.URI)
+			}(i)
+		}
 
-		wg.Add(1)
-		go func(i int) {
-			defer wg.Done()
-			feed[i].Post.Record.HTML = FacetsToHTML(feed[i].Post.Record.Text, feed[i].Post.Record.Facets)
-		}(i)
-	}
-
-	wg.Wait()
+		wg.Wait()
+	*/
 
 	return feed
 }

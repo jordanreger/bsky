@@ -22,6 +22,12 @@ html {
     margin: 0;
 }
 
+hr {
+    border: 0;
+    height: 1px;
+    background: var(--secondary);
+}
+
 body {
     font-family: system-ui, sans-serif;
 }

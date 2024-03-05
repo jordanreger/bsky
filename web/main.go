@@ -73,7 +73,27 @@ func main() {
 
 		did := util.GetDID(handle)
 		actor := bsky.GetActorProfile(did)
-		res, _ := json.MarshalIndent(actor, "", "    ")
+		type raw struct {
+			*bsky.Actor
+			*bsky.Feed `json:"feed,omitempty"`
+		}
+		feed := actor.Feed()
+		actor_feed := raw{
+			&actor,
+			&feed,
+		}
+		res, _ := json.MarshalIndent(actor_feed, "", "    ")
+
+		w.Header().Add("Content-Type", "application/json")
+		fmt.Fprint(w, string(res))
+	})
+	mux.HandleFunc("/raw/profile/{handle}/feed/", func(w http.ResponseWriter, r *http.Request) {
+		handle := r.PathValue("handle")
+
+		did := util.GetDID(handle)
+		actor := bsky.GetActorProfile(did)
+		feed := actor.Feed()
+		res, _ := json.MarshalIndent(feed, "", "    ")
 
 		w.Header().Add("Content-Type", "application/json")
 		fmt.Fprint(w, string(res))

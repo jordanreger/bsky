@@ -18,36 +18,9 @@
 		<hr>
 	</article>
 
+	<span id="feed"></span>
 	{{range .Feed}}
-    	<span id="feed"></span>
-		<article>
-			{{if ne .Post.Author.DID $.DID}}
-			<p style="margin:0;margin-left:60px;margin-bottom:5px;" class="repost"><b>Reposted by <a href="/profile/{{$.Handle}}">{{$.DisplayName}}</a></b></p>
-			{{end}}
-				<a href="/profile/{{.Post.Author.Handle}}/post/{{.Post.RKey}}" style="color:inherit;text-decoration:none;">
-                <div>
-					<img src="{{.Post.Author.Avatar}}" alt="{{.Post.Author.DisplayName}}'s avatar" style="width:50px;border-radius:50%;float:left;margin-right:10px;padding:0;">
-                    <p style="margin:0;">
-                        <b>{{.Post.Author.DisplayName}}</b>
-                        <span class="handle">@{{.Post.Author.Handle}}</span>
-                        &middot;
-                        <time datetime="{{.Post.Record.CreatedAt}}" style="margin-top: 10px;" class="date">{{.Post.Record.CreatedAt.Format "1/2/2006 15:04 UTC" }}</time>
-                    </p>
-                </div>
-				<div style="margin-left:60px;">
-					<p style="margin-top:5px;">{{.Post.Record.HTML}}</p>
-					<section>
-						{{range .Post.Embed.Images}}
-						<img src="{{.Thumb}}" alt="{{.Alt}}" style="margin-bottom:10px;">
-						{{end}}
-					</section>
-					<p style="margin-bottom:5px;" class="counts">
-						<a href="#replies" style="color:inherit;text-decoration:none;"><b>{{.Post.ReplyCount}}</b> replies</a> &middot; <b>{{.Post.RepostCount}}</b> reposts &middot; <b>{{.Post.LikeCount}}</b> likes
-					</p>
-				</div>
-				</a>
-            </article>
-			<hr>
+		{{template "feed_post" .}}
     {{end}}
 </body>
 </html>
