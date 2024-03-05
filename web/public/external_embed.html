@@ -1,0 +1,17 @@
+{{define "external_embed"}}
+    {{if .Post.Embed}}
+        {{if eq .Post.Embed.Type "app.bsky.embed.external#view"}}
+            <a href="{{.Post.Embed.External.URI}}" style="color:inherit;text-decoration:none;">
+                <article style="padding:10px;border: 1px solid var(--secondary);margin-bottom: 10px;">
+                    {{if .Post.Embed.External.Thumb}}<img src="{{.Post.Embed.External.Thumb}}" alt="External Embed image" style="margin-bottom:10px;">{{end}}
+                    {{if .Post.Embed.External.Title}}
+                        <h3 style="margin:auto 0;">{{.Post.Embed.External.Title}}</h3>
+                        <p style="margin: auto 0;">{{.Post.Embed.External.Description}}</p>
+                    {{else}}
+                        <h3 style="margin:auto 0;">{{.Post.Embed.External.URI}}</h3>
+                    {{end}}
+                </article>
+            </a>
+        {{end}}
+    {{end}}
+{{end}}

@@ -1,6 +1,10 @@
 package bsky
 
-import "time"
+import (
+	"time"
+
+	"github.com/jordanreger/htmlsky/util"
+)
 
 type Embed struct {
 	Type     string         `json:"$type"`
@@ -43,16 +47,21 @@ type Ref struct {
 }
 
 type RecordEmbed struct {
-	Type   string             `json:"$type,omitempty"`
-	Record *RecordEmbedRecord `json:"record,omitempty"`
+	RecordEmbedRecord `json:",omitempty"`
+	Type              string             `json:"$type,omitempty"`
+	Record            *RecordEmbedRecord `json:"record,omitempty"`
 }
 
 type RecordEmbedRecord struct {
-	URI       string     `json:"uri"`
-	CID       string     `json:"cid"`
+	URI       string     `json:"uri,omitempty"`
+	CID       string     `json:"cid,omitempty"`
 	Author    *Actor     `json:"author,omitempty"`
 	Value     *Record    `json:"value,omitempty"`
 	Labels    []string   `json:"labels,omitempty"`
 	IndexedAt *time.Time `json:"indexedAt,omitempty"`
 	Embeds    []*Embed   `json:"embeds,omitempty"`
+}
+
+func (record RecordEmbedRecord) RKey() string {
+	return util.GetRKey(record.URI)
 }

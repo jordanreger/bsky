@@ -1,0 +1,45 @@
+{{define "post_embed"}}
+    {{if .Post.Embed}}
+        {{if eq .Post.Embed.Type "app.bsky.embed.recordWithMedia#view"}}
+            <article style="padding:10px;border: 1px solid var(--secondary);margin-bottom: 10px;">
+                <div>
+                    <a href="/profile/{{.Post.Embed.Record.Record.Author.Handle}}/post/{{.Post.Embed.Record.Record.RKey}}" style="color:inherit;text-decoration:none;">
+                    <img src="{{.Post.Embed.Record.Record.Author.Avatar}}" alt="{{.Post.Embed.Record.Record.Author.DisplayName}}'s avatar" style="width:50px;border-radius:50%;float:left;margin-right:10px;padding:0;">
+                    <p style="margin:0;">
+                        <b>{{.Post.Embed.Record.Record.Author.DisplayName}}</b>
+                        <span class="handle">@{{.Post.Embed.Record.Record.Author.Handle}}</span>
+                        &middot;
+                        <time datetime="{{.Post.Embed.Record.Record.Value.CreatedAt}}" style="margin-top: 10px;" class="date">{{.Post.Embed.Record.Record.Value.CreatedAt.Format "1/2/2006 15:04 UTC" }}</time>
+                    </p>
+                </div>
+                <div style="margin-left:60px;">
+                    <p style="margin-top:5px;">{{.Post.Embed.Record.Record.Value.HTML}}</p>
+                </div>
+                </a>
+            </article>
+        {{else if eq .Post.Embed.Type "app.bsky.embed.record#view"}}
+            {{if eq .Post.Embed.Record.Type "app.bsky.embed.record#viewNotFound"}}
+                <article style="padding:10px;border: 1px solid var(--secondary);margin-bottom: 10px;">
+                    <p>Not found</p>
+                </article>
+            {{else}}
+                <article style="padding:10px;border: 1px solid var(--secondary);margin-bottom: 10px;">
+                    <div>
+                        <a href="/profile/{{.Post.Embed.Record.Author.Handle}}/post/{{.Post.Embed.Record.RKey}}" style="color:inherit;text-decoration:none;">
+                        <img src="{{.Post.Embed.Record.Author.Avatar}}" alt="{{.Post.Embed.Record.Author.DisplayName}}'s avatar" style="width:50px;border-radius:50%;float:left;margin-right:10px;padding:0;">
+                        <p style="margin:0;">
+                            <b>{{.Post.Embed.Record.Author.DisplayName}}</b>
+                            <span class="handle">@{{.Post.Embed.Record.Author.Handle}}</span>
+                            &middot;
+                            <time datetime="{{.Post.Embed.Record.Value.CreatedAt}}" style="margin-top: 10px;" class="date">{{.Post.Embed.Record.Value.CreatedAt.Format "1/2/2006 15:04 UTC" }}</time>
+                        </p>
+                    </div>
+                    <div style="margin-left:60px;">
+                        <p style="margin-top:5px;">{{.Post.Embed.Record.Value.HTML}}</p>
+                    </div>
+                    </a>
+                </article>
+            {{end}}
+        {{end}}
+    {{end}}
+{{end}}

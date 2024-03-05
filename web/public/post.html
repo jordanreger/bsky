@@ -12,6 +12,8 @@
         </p>
         <section>
             {{template "image_embed" .}}
+            {{template "post_embed" .}}
+            {{template "external_embed" .}}
         </section>
         <time datetime="{{.Post.Record.CreatedAt}}" class="date">{{.Post.Record.CreatedAt.Format "Jan 02, 2006 at 15:04 UTC" }}</time>
 
@@ -39,6 +41,8 @@
         <p style="margin-top:5px;">{{.Post.Record.HTML}}</p>
         <section>
             {{template "image_embed" .}}
+            {{template "post_embed" .}}
+            {{template "external_embed" .}}
         </section>
         <p style="margin-bottom:5px;" class="counts">
             <a href="#replies" style="color:inherit;text-decoration:none;"><b>{{.Post.ReplyCount}}</b> replies</a> &middot; <b>{{.Post.RepostCount}}</b> reposts &middot; <b>{{.Post.LikeCount}}</b> likes
