@@ -95,7 +95,7 @@ func ParseTags(raw string) []Facet {
 				Features: []FacetFeature{
 					{
 						Type: "app.bsky.richtext.facet#tag",
-						Tag:  string(u),
+						Tag:  string(strings.Replace(u, "#", "", -1)),
 					},
 				},
 			},
