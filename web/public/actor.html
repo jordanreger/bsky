@@ -20,6 +20,9 @@
 
 	<span id="feed"></span>
 	{{range .Feed}}
+		{{if ne .Post.Author.DID $.DID}}
+			<p style="margin:0;margin-left:60px;margin-bottom:5px;" class="repost"><b>Reposted by <a href="/profile/{{$.Handle}}">{{$.DisplayName}}</a></b></p>
+		{{end}}
 		{{template "feed_post" .}}
     {{end}}
 </body>
