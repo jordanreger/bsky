@@ -9,23 +9,31 @@ import (
 	"github.com/jordanreger/htmlsky/util"
 )
 
-var handleRegex = regexp.MustCompile(`[$|\W](@([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)`)
+/*********************************
+Facets are still kind of broken.
+Don't expect most of them to work.
+*********************************/
 
-func ParseMentions(raw string) []*Facet {
-	var mentions []*Facet
+var handleRegex = regexp.MustCompile(`(^|\s|\()(@)([a-zA-Z0-9.-]+)(\b)`)
+
+func ParseMentions(raw string) []Facet {
+	var mentions []Facet
 
 	rawBytes := []byte(raw)
 
 	for _, m := range handleRegex.FindAllString(raw, -1) {
 		did := util.GetDID(strings.Split(m, "@")[1])
+		if did == "" {
+			continue
+		}
 
 		mentions = append(mentions,
-			&Facet{
+			Facet{
 				Index: FacetIndex{
 					ByteStart: bytes.Index(rawBytes, []byte(m)),
 					ByteEnd:   bytes.Index(rawBytes, []byte(m)) + len(m),
 				},
-				Features: []*FacetFeature{
+				Features: []FacetFeature{
 					{
 						Type: "app.bsky.richtext.facet#mention",
 						DID:  did,
@@ -41,23 +49,23 @@ func ParseMentions(raw string) []*Facet {
 var urlRegex = regexp.MustCompile(`[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)`)
 var emailRegex = regexp.MustCompile(`.*@.*`)
 
-func ParseURLs(raw string) []*Facet {
+func ParseURLs(raw string) []Facet {
 	raw = strings.ReplaceAll(raw, "https://", "")
 	raw = strings.ReplaceAll(raw, "http://", "")
 
-	var urls []*Facet
+	var urls []Facet
 
 	rawBytes := []byte(raw)
 
 	for _, u := range urlRegex.FindAllString(raw, -1) {
 		if !emailRegex.MatchString(u) {
 			urls = append(urls,
-				&Facet{
+				Facet{
 					Index: FacetIndex{
 						ByteStart: bytes.Index(rawBytes, []byte(u)),
 						ByteEnd:   bytes.Index(rawBytes, []byte(u)) + len(u),
 					},
-					Features: []*FacetFeature{
+					Features: []FacetFeature{
 						{
 							Type: "app.bsky.richtext.facet#link",
 							URI:  "https://" + string(u),
@@ -70,16 +78,44 @@ func ParseURLs(raw string) []*Facet {
 	return urls
 }
 
-func ParseFacets(text string) []*Facet {
-	var facets []*Facet
+var tagRegex = regexp.MustCompile(`#\w+`)
 
-	facets = append(facets, ParseURLs(text)...)
+func ParseTags(raw string) []Facet {
+	var tags []Facet
+
+	rawBytes := []byte(raw)
+
+	for _, u := range tagRegex.FindAllString(raw, -1) {
+		tags = append(tags,
+			Facet{
+				Index: FacetIndex{
+					ByteStart: bytes.Index(rawBytes, []byte(u)),
+					ByteEnd:   bytes.Index(rawBytes, []byte(u)) + len(u),
+				},
+				Features: []FacetFeature{
+					{
+						Type: "app.bsky.richtext.facet#tag",
+						Tag:  string(u),
+					},
+				},
+			},
+		)
+	}
+
+	return tags
+}
+
+func ParseFacets(text string) []Facet {
+	var facets []Facet
+
 	facets = append(facets, ParseMentions(text)...)
+	facets = append(facets, ParseURLs(text)...)
+	facets = append(facets, ParseTags(text)...)
 
 	return facets
 }
 
-func FacetsToHTML(text string, facets []*Facet) template.HTML {
+func FacetsToHTML(text string, facets []Facet) template.HTML {
 	text = strings.ReplaceAll(text, "https://", "")
 	text = strings.ReplaceAll(text, "http://", "")
 

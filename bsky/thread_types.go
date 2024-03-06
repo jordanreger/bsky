@@ -35,7 +35,7 @@ type Record struct {
 	Type      string     `json:"$type"`
 	Langs     []string   `json:"langs,omitempty"`
 	Embed     *Embed     `json:"embed,omitempty"`
-	Facets    []*Facet   `json:"facets,omitempty"`
+	Facets    []Facet    `json:"facets,omitempty"`
 	Reply     *Reply     `json:"reply,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 }
