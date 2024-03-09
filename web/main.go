@@ -25,12 +25,7 @@ func main() {
 			http.ServeFileFS(w, r, public, r.URL.Path)
 			return
 		}
-		handle := "htmlsky.app"
-		did := util.GetDID(handle)
-		actor := bsky.GetActorProfile(did)
-		page := GetActorPage(actor)
-
-		fmt.Fprint(w, page)
+		http.ServeFileFS(w, r, public, "index.html")
 	})
 
 	/* REDIRECTS */
