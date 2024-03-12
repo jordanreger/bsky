@@ -22,6 +22,12 @@ func main() {
 
 	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path != "/" {
+			// serve DID
+			if r.URL.Path == "/.well-known/atproto-did" {
+				fmt.Fprint(w, "did:plc:sxouh4kxso3dufvnafa2zggn")
+				return
+			}
+			// otherwise serve static
 			http.ServeFileFS(w, r, public, r.URL.Path)
 			return
 		}
