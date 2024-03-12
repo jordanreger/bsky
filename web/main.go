@@ -31,7 +31,15 @@ func main() {
 			http.ServeFileFS(w, r, public, r.URL.Path)
 			return
 		}
-		http.ServeFileFS(w, r, public, "index.html")
+
+		// serve official htmlsky account
+		handle := "did:plc:sxouh4kxso3dufvnafa2zggn"
+
+		did := util.GetDID(handle)
+		actor := bsky.GetActorProfile(did)
+		page := GetActorPage(actor)
+
+		fmt.Fprint(w, page)
 	})
 
 	/* REDIRECTS */
@@ -88,6 +96,8 @@ func main() {
 		w.Header().Add("Content-Type", "application/json")
 		fmt.Fprint(w, string(res))
 	})
+
+	// TODO
 	mux.HandleFunc("/raw/profile/{handle}/feed/", func(w http.ResponseWriter, r *http.Request) {
 		handle := r.PathValue("handle")
 
