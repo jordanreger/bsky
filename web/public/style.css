@@ -7,6 +7,7 @@
         --secondary: dimgray;
         --primary: black;
         --link: royalblue;
+        --ui: lightgray;
     }
 }
 @media (prefers-color-scheme: dark) {
@@ -14,6 +15,7 @@
         --secondary: darkgray;
         --primary: white;
         --link: dodgerblue;
+        --ui: dimgray;
     }
 }
 
@@ -25,7 +27,7 @@ html {
 hr {
     border: 0;
     height: 1px;
-    background: var(--secondary);
+    background: var(--ui);
 }
 
 body {
