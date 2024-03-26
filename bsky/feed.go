@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-type f_res struct {
+type a_res struct {
 	Feed   Feed   `json:"feed"`
 	Cursor string `json:"cursor"`
 }
@@ -18,25 +18,32 @@ func GetActorFeed(actor Actor) Feed {
 		fmt.Println(err)
 	}
 
-	var f_body f_res
+	var f_body a_res
 	b, _ := io.ReadAll(res.Body)
 	json.Unmarshal(b, &f_body)
 
 	feed := f_body.Feed
 
-	/*
-		var wg sync.WaitGroup
+	return feed
+}
 
-		for i := range feed {
-			wg.Add(1)
-			go func(i int) {
-				defer wg.Done()
-				feed[i].Post.RKey = util.GetRKey(feed[i].Post.URI)
-			}(i)
-		}
+type l_res struct {
+	Feed   Feed   `json:"feed"`
+	Cursor string `json:"cursor"`
+}
 
-		wg.Wait()
-	*/
+/* Must use util.GetListURI() for this */
+func GetListFeed(at_uri string) Feed {
+	res, err := http.Get("https://api.bsky.app/xrpc/app.bsky.feed.getListFeed?at_uri=" + at_uri)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	var f_body l_res
+	b, _ := io.ReadAll(res.Body)
+	json.Unmarshal(b, &f_body)
+
+	feed := f_body.Feed
 
 	return feed
 }
