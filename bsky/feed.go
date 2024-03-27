@@ -34,7 +34,7 @@ type l_res struct {
 
 /* Must use util.GetListURI() for this */
 func GetListFeed(at_uri string) Feed {
-	res, err := http.Get("https://api.bsky.app/xrpc/app.bsky.feed.getListFeed?at_uri=" + at_uri)
+	res, err := http.Get("https://api.bsky.app/xrpc/app.bsky.feed.getListFeed?list=" + at_uri)
 	if err != nil {
 		fmt.Println(err)
 	}

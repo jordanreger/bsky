@@ -20,3 +20,10 @@ func GetThreadPageEmbed(thread bsky.Thread) string {
 	t.ExecuteTemplate(&thread_page, "thread.embed.html", thread)
 	return thread_page.String()
 }
+
+func GetListPageEmbed(list bsky.List) string {
+	t := template.Must(template.ParseFS(publicFiles, "public/*"))
+	var list_page bytes.Buffer
+	t.ExecuteTemplate(&list_page, "list.embed.html", list)
+	return list_page.String()
+}

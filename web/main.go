@@ -96,19 +96,6 @@ func main() {
 		w.Header().Add("Content-Type", "application/json")
 		fmt.Fprint(w, string(res))
 	})
-
-	// TODO
-	mux.HandleFunc("/raw/profile/{handle}/feed/", func(w http.ResponseWriter, r *http.Request) {
-		handle := r.PathValue("handle")
-
-		did := util.GetDID(handle)
-		actor := bsky.GetActorProfile(did)
-		feed := actor.Feed()
-		res, _ := json.MarshalIndent(feed, "", "    ")
-
-		w.Header().Add("Content-Type", "application/json")
-		fmt.Fprint(w, string(res))
-	})
 	mux.HandleFunc("/embed/profile/{handle}/", func(w http.ResponseWriter, r *http.Request) {
 		handle := r.PathValue("handle")
 
@@ -152,6 +139,52 @@ func main() {
 		at_uri := util.GetPostURI(did, rkey)
 		thread := bsky.GetThread(at_uri)
 		page := GetThreadPageEmbed(thread)
+
+		fmt.Fprint(w, page)
+	})
+
+	// list
+	mux.HandleFunc("/profile/{handle}/lists/{rkey}/", func(w http.ResponseWriter, r *http.Request) {
+		handle := r.PathValue("handle")
+		rkey := r.PathValue("rkey")
+
+		did := util.GetDID(handle)
+		at_uri := util.GetListURI(did, rkey)
+		list := bsky.GetList(at_uri)
+		page := GetListPage(list)
+
+		fmt.Fprint(w, page)
+	})
+	mux.HandleFunc("/raw/profile/{handle}/lists/{rkey}/", func(w http.ResponseWriter, r *http.Request) {
+		handle := r.PathValue("handle")
+		rkey := r.PathValue("rkey")
+
+		did := util.GetDID(handle)
+		at_uri := util.GetListURI(did, rkey)
+		list := bsky.GetList(at_uri)
+		type raw struct {
+			*bsky.List
+			*bsky.Feed `json:"feed,omitempty"`
+		}
+		feed := list.Feed()
+		actor_feed := raw{
+			&list,
+			&feed,
+		}
+		res, _ := json.MarshalIndent(actor_feed, "", "    ")
+
+		w.Header().Add("Content-Type", "application/json")
+		fmt.Fprint(w, string(res))
+
+	})
+	mux.HandleFunc("/embed/profile/{handle}/lists/{rkey}/", func(w http.ResponseWriter, r *http.Request) {
+		handle := r.PathValue("handle")
+		rkey := r.PathValue("rkey")
+
+		did := util.GetDID(handle)
+		at_uri := util.GetListURI(did, rkey)
+		list := bsky.GetList(at_uri)
+		page := GetListPageEmbed(list)
 
 		fmt.Fprint(w, page)
 	})

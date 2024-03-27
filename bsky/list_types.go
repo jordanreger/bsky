@@ -1,15 +1,12 @@
 package bsky
 
 import (
+	"github.com/jordanreger/htmlsky/util"
+	"html/template"
 	"time"
 )
 
 type List struct {
-	List  ListList `json:"list,omitempty"`
-	Items []Actor  `json:"items,omitempty"`
-}
-
-type ListList struct {
 	URI               string    `json:"uri,omitempty"`
 	CID               string    `json:"cid,omitempty"`
 	Name              string    `json:"name,omitempty"`
@@ -19,4 +16,21 @@ type ListList struct {
 	Creator           Actor     `json:"creator,omitempty"`
 	Description       string    `json:"description,omitempty"`
 	DescriptionFacets []Facet   `json:"descriptionFacets,omitempty"`
+}
+
+type ListItem struct {
+	URI     string `json:"uri,omitempty"`
+	Subject Actor  `json:"subject,omitempty"`
+}
+
+func (list List) RKey() string {
+	return util.GetRKey(list.URI)
+}
+
+func (list List) Feed() Feed {
+	return GetListFeed(list.URI)
+}
+
+func (list List) DescriptionHTML() template.HTML {
+	return FacetsToHTML(list.Description, list.DescriptionFacets)
 }
