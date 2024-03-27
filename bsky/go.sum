@@ -1,2 +1,4 @@
 github.com/jordanreger/htmlsky/util v0.0.0-20240306053622-b168496a8417 h1:nom++I+Hy4Tl4tR1noV3UJ7Wb1t1tkzblVJ5Q9/ilo4=
 github.com/jordanreger/htmlsky/util v0.0.0-20240306053622-b168496a8417/go.mod h1:quGqlhzhYZpRLGF4VIJf5VfV1hkhZTgDb6aoHA5QZ8Y=
+github.com/jordanreger/htmlsky/util v0.0.0-20240326234839-5f8040418523 h1:xu5eJOYxnofIpCV6/ulfsE2Ypie4rE12/INEpzgKih0=
+github.com/jordanreger/htmlsky/util v0.0.0-20240326234839-5f8040418523/go.mod h1:quGqlhzhYZpRLGF4VIJf5VfV1hkhZTgDb6aoHA5QZ8Y=
