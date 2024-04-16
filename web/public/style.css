@@ -1,59 +1,65 @@
 :root {
-    color-scheme: light dark;
+  color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: light) {
-    :root {
-        --secondary: dimgray;
-        --primary: black;
-        --link: royalblue;
-        --ui: lightgray;
-    }
+  :root {
+    --secondary: dimgray;
+    --primary: black;
+    --link: royalblue;
+    --ui: lightgray;
+  }
 }
+
 @media (prefers-color-scheme: dark) {
-    :root {
-        --secondary: darkgray;
-        --primary: white;
-        --link: dodgerblue;
-        --ui: dimgray;
-    }
+  :root {
+    --secondary: darkgray;
+    --primary: white;
+    --link: dodgerblue;
+    --ui: dimgray;
+  }
 }
 
 html {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 hr {
-    border: 0;
-    height: 1px;
-    background: var(--ui);
+  border: 0;
+  height: 1px;
+  background: var(--ui);
 }
 
 body {
-    max-width: 650px;
-    margin: 0 auto;
-    padding: 10px 15px;
-    font-family: system-ui, sans-serif;
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 10px 15px;
+  font-family: system-ui, sans-serif;
 }
 
-code, pre {
-    font-family: ui-monospace;
+code,
+pre {
+  font-family: ui-monospace;
 }
 
-a, a:visited {
-    color: var(--link);
-    text-decoration: none;
+a,
+a:visited {
+  color: var(--link);
+  text-decoration: none;
 }
 
-.handle, .counts, .date, .repost {
-    color: var(--secondary);
+.handle,
+.counts,
+.date,
+.repost {
+  color: var(--secondary);
 }
 
 .counts b {
-    color: var(--primary);
+  color: var(--primary);
 }
 
 img {
-    max-width: 100%;
+  max-width: 100%;
 }
