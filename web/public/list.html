@@ -2,22 +2,25 @@
 <!DOCTYPE html>
 <html lang="en">
 {{template "list_head" .}}
+
 <body>
 	{{template "list_header" .}}
 
 	<!-- list description -->
-	<article>
+	<article style="margin-top:-5px;">
 		<h1 style="margin-bottom:0;">{{.Name}}</h1>
-		<p style="margin:auto 0;" class="handle">by <a href="/profile/{{.Creator.DID}}" style="color:inherit;">@{{.Creator.Handle}}</a></p>
+		<p style="margin:auto 0;" class="handle">by <a href="/profile/{{.Creator.DID}}"
+				style="color:inherit;">@{{.Creator.Handle}}</a></p>
 		<p style="white-space:pre-line">{{.DescriptionHTML}}</p>
 		<hr>
 	</article>
 
 	<span id="feed"></span>
 	{{range .Feed}}
-		{{template "feed_post" .}}
-  {{end}}
+	{{template "feed_post" .}}
+	{{end}}
 </body>
+
 </html>
 {{end}}
 
