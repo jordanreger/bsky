@@ -27,12 +27,6 @@ html {
   line-height: 1.4em;
 }
 
-body {
-  border: 1px solid var(--ui);
-  border-radius: 5px;
-  padding: 5px 15px;
-}
-
 hr {
   border: 0;
   height: 1px;
