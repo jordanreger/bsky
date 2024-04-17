@@ -21,21 +21,22 @@
 }
 
 html {
-  padding: 0;
-  margin: 0;
+  font-family: system-ui, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.4em;
+}
+
+body {
+  border: 1px solid var(--ui);
+  border-radius: 5px;
+  padding: 25px;
 }
 
 hr {
   border: 0;
   height: 1px;
   background: var(--ui);
-}
-
-body {
-  max-width: 650px;
-  margin: 0 auto;
-  padding: 10px 15px;
-  font-family: system-ui, sans-serif;
 }
 
 code,
