@@ -30,7 +30,7 @@ html {
 body {
   border: 1px solid var(--ui);
   border-radius: 5px;
-  padding: 25px;
+  padding: 5px 15px;
 }
 
 hr {
