@@ -47,7 +47,7 @@ pre {
 a,
 a:visited {
   color: var(--link);
-  text-decoration: none;
+  text-underline-offset: 3px;
 }
 
 .handle,
