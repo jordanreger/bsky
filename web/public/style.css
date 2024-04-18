@@ -41,7 +41,11 @@ pre {
 a,
 a:visited {
   color: var(--link);
-  text-underline-offset: 3px;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 .handle,
