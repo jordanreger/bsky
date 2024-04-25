@@ -1,0 +1,13 @@
+image: nixos/unstable
+packages:
+  - nixos.flyctl
+secrets:
+    - dfb19d3b-02be-4502-a509-71dbd6bf33cf
+sources:
+  - https://git.sr.ht/~jordanreger/htmlsky
+tasks:
+  - deploy: |
+      set +x
+      export FLY_API_TOKEN=$(cat ~/.fly_token)
+      set -x
+      flyctl deploy --remote-only ./htmlsky/web

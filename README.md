@@ -8,4 +8,4 @@ Want JSON? `/raw/`
 
 Want embeds? `/embed/`
 
-Source: https://github.com/jordanreger/htmlsky
+Source: https://git.sr.ht/~jordanreger/htmlsky
