@@ -1,4 +1,2 @@
-github.com/jordanreger/htmlsky/bsky v0.0.0-20240425003557-00d9b524e9e1 h1:Lk3buROMldD802w5Veyw7BAAsd9IdNw72ylmaH6/Bxk=
-github.com/jordanreger/htmlsky/bsky v0.0.0-20240425003557-00d9b524e9e1/go.mod h1:4hiL+r+W12SOu1Wcchx/eY7+DD8Pw9u+dubRu8KSKr4=
-github.com/jordanreger/htmlsky/util v0.0.0-20240425003557-00d9b524e9e1 h1:dVkHafao7Y5LWgC7v86CbxDvP9BUlVmKYqEci0zQAh0=
-github.com/jordanreger/htmlsky/util v0.0.0-20240425003557-00d9b524e9e1/go.mod h1:quGqlhzhYZpRLGF4VIJf5VfV1hkhZTgDb6aoHA5QZ8Y=
+git.sr.ht/~jordanreger/htmlsky/util v0.0.0-20240429155031-c13358f61640 h1:mObkjeJ1xoA5wQ8OQgXEq8jRxiacJReEVD+sSwHeM/8=
+git.sr.ht/~jordanreger/htmlsky/util v0.0.0-20240429155031-c13358f61640/go.mod h1:MrZSdXsmG1tr+jy64u1cdEsDvdNk2Crp6komLgPUc10=
