@@ -3,7 +3,7 @@ package bsky
 import (
 	"time"
 
-	"github.com/jordanreger/htmlsky/util"
+	"git.sr.ht/~jordanreger/htmlsky/util"
 )
 
 type Embed struct {

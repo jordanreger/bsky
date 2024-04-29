@@ -2,9 +2,6 @@ go 1.22.0
 
 use (
 	./bsky
-	// See #24
-	// ./cmd/personalsky
-	
 	./util
 	./web
 )

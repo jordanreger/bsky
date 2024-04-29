@@ -8,8 +8,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/jordanreger/htmlsky/bsky"
-	"github.com/jordanreger/htmlsky/util"
+	"git.sr.ht/~jordanreger/htmlsky/bsky"
+	"git.sr.ht/~jordanreger/htmlsky/util"
 )
 
 //go:embed all:public

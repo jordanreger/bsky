@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/jordanreger/htmlsky/util"
+	"git.sr.ht/~jordanreger/htmlsky/util"
 )
 
 /*********************************
