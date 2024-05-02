@@ -1,0 +1,4 @@
+git.sr.ht/~jordanreger/bsky/api v0.0.0-20240502030522-c4c24b131f8e h1:eZu7YK7FRAhzeogOW8Xf5jLE1ILEV9YehSP/jIPoP2I=
+git.sr.ht/~jordanreger/bsky/api v0.0.0-20240502030522-c4c24b131f8e/go.mod h1:AvNcIB5BZX/+ucr9vfRO+ZcjF57RJAmcs7l1j4hew+I=
+git.sr.ht/~jordanreger/bsky/util v0.0.0-20240502030522-c4c24b131f8e h1:uZwhg16Xpf6DfTEJVX3ZKyGaR5wBZMQmxfrb0s24aic=
+git.sr.ht/~jordanreger/bsky/util v0.0.0-20240502030522-c4c24b131f8e/go.mod h1:dFIWBF2o6TH0V3jKU+F4Zbve24lXSk0Yu6WfdEtaBLQ=
