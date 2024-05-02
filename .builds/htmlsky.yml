@@ -15,4 +15,4 @@ tasks:
 
       export FLYCTL_INSTALL="/home/build/.fly"
       export PATH="$FLYCTL_INSTALL/bin:$PATH"
-      flyctl deploy --remote-only .
+      flyctl deploy --remote-only ./bsky/htmlsky
