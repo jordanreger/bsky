@@ -1,10 +1,10 @@
 A monorepo with all of my [Bluesky](https://bsky.social)-related projects in it. Notably, [HTMLsky](#htmlsky) is located here.
 
-# [api](https://pkg.go.dev/git.sr.ht/~jordanreger/bsky/api)
+# [api](https://pkg.go.dev/jordanreger.com/bsky/api)
 
 This library is particularly useful if you're trying to build simple Bluesky applications without having to deal with Bluesky's indigo library.
 
-# [util](https://pkg.go.dev/git.sr.ht/~jordanreger/bsky/util)
+# [util](https://pkg.go.dev/jordanreger.com/bsky/util)
 
 This library is useful for converting simple things like DIDs, AT URIs, and more.
 
