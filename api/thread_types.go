@@ -4,7 +4,7 @@ import (
 	"html/template"
 	"time"
 
-	"git.sr.ht/~jordanreger/bsky/util"
+	"jordanreger.com/bsky/util"
 )
 
 type Thread struct {

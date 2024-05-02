@@ -8,12 +8,12 @@ import (
 	"log"
 	"net/http"
 
-	bsky "git.sr.ht/~jordanreger/bsky/api"
-	"git.sr.ht/~jordanreger/bsky/util"
+	bsky "jordanreger.com/bsky/api"
+	"jordanreger.com/bsky/util"
 )
 
-var host = "htmlsky.fly.dev"
-var handle = "htmlsky.fly.dev"
+var host = "htmlsky.app"
+var handle = "htmlsky.app"
 var did = "did:plc:sxouh4kxso3dufvnafa2zggn"
 
 //go:embed all:public

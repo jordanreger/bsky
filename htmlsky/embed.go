@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"html/template"
 
-	bsky "git.sr.ht/~jordanreger/bsky/api"
+	bsky "jordanreger.com/bsky/api"
 )
 
 func GetActorPageEmbed(actor bsky.Actor) string {

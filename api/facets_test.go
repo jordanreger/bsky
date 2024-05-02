@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"git.sr.ht/~jordanreger/bsky/api"
+	bsky "jordanreger.com/bsky/api"
 )
 
 func TestFacets_Empty(t *testing.T) {
