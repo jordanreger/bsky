@@ -1,13 +1,18 @@
-image: nixos/unstable
+image: alpine/edge
 packages:
-  - nixos.flyctl
+  - curl
 secrets:
-    - dfb19d3b-02be-4502-a509-71dbd6bf33cf
+  - dfb19d3b-02be-4502-a509-71dbd6bf33cf
 sources:
   - https://git.sr.ht/~jordanreger/bsky
 tasks:
+  - install-flyctl: |
+      curl -L https://fly.io/install.sh | sh
   - deploy: |
       set +x
       export FLY_API_TOKEN=$(cat ~/.fly_token)
       set -x
-      flyctl deploy --remote-only ./bsky/htmlsky
+
+      export FLYCTL_INSTALL="/home/build/.fly"
+      export PATH="$FLYCTL_INSTALL/bin:$PATH"
+      flyctl deploy --remote-only .
