@@ -1,0 +1,14 @@
+{{define "image_embed"}}
+    {{if .Post.Embed}}
+        {{if eq .Post.Embed.Type "app.bsky.embed.recordWithMedia#view"}}
+            {{range .Post.Embed.Media.Images}}
+                <img src="{{.Thumb}}" alt="{{.Alt}}" style="margin-bottom:10px;">
+            {{end}}
+        {{end}}
+        {{if eq .Post.Embed.Type "app.bsky.embed.images#view"}}
+            {{range .Post.Embed.Images}}
+                <img src="{{.Thumb}}" alt="{{.Alt}}" style="margin-bottom:10px;">
+            {{end}}
+        {{end}}
+    {{end}}
+{{end}}

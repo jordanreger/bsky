@@ -1,0 +1,64 @@
+:root {
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --secondary: dimgray;
+    --primary: black;
+    --link: royalblue;
+    --ui: lightgray;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --secondary: darkgray;
+    --primary: white;
+    --link: dodgerblue;
+    --ui: dimgray;
+  }
+}
+
+html {
+  font-family: system-ui, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.4em;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: var(--ui);
+}
+
+code,
+pre {
+  font-family: ui-monospace;
+}
+
+a,
+a:visited {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.handle,
+.counts,
+.date,
+.repost {
+  color: var(--secondary);
+}
+
+.counts b {
+  color: var(--primary);
+}
+
+img {
+  max-width: 100%;
+}
