@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"git.sr.ht/~jordanreger/htmlsky/util"
+	"git.sr.ht/~jordanreger/bsky/util"
 )
 
 /*********************************
@@ -135,7 +135,7 @@ func FacetsToHTML(text string, facets []Facet) template.HTML {
 			offset += len(m_url) - len(in_txt)
 		} else if f.Features[0].Type == mentionFacet {
 			in_txt := text[f.Index.ByteStart+offset : f.Index.ByteEnd+offset]
-			m_url := "<a href='https://htmlsky.app/profile/" + f.Features[len(f.Features)-1].DID + "'>" + in_txt + "</a>"
+			m_url := "<a href='https://bsky.fly.dev/profile/" + f.Features[len(f.Features)-1].DID + "'>" + in_txt + "</a>"
 			text = text[:f.Index.ByteStart+offset] + m_url + text[f.Index.ByteEnd+offset:]
 			offset += len(m_url) - len(in_txt)
 		} else if f.Features[0].Type == tagFacet {

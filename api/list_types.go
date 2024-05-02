@@ -1,7 +1,7 @@
 package bsky
 
 import (
-	"git.sr.ht/~jordanreger/htmlsky/util"
+	"git.sr.ht/~jordanreger/bsky/util"
 	"html/template"
 	"time"
 )
