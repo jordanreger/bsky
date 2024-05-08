@@ -13,12 +13,10 @@ type Describe struct {
 	Feeds []Feed `json:"feeds"`
 }
 
-func DescribeFeedGenerator(did string) string {
+func DescribeFeedGenerator(did string, feeds []Feed) string {
 	describe := Describe{
 		did,
-		[]Feed{
-			{"test"},
-		},
+		feeds,
 	}
 
 	res, err := json.Marshal(describe)

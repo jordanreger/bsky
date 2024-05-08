@@ -1,4 +1,14 @@
 jordanreger.com/bsky v0.0.0-20240508153704-fe259470af7d h1:YKRdvmgqqW2R5fzNCVUjfZl1xn8jXXxEqFUd4EZg+eY=
 jordanreger.com/bsky v0.0.0-20240508153704-fe259470af7d/go.mod h1:iE/STWOEbdeq7b1kyP5b/9KA/fRoEhzUtcoyp0zjpZU=
+jordanreger.com/bsky/api v0.0.0-20240502184306-5d4d98343818 h1:Pe9WgGq4tRMih6RyEJ7VgZGaOL6n5A0keFfmH9oCYRM=
+jordanreger.com/bsky/api v0.0.0-20240502184306-5d4d98343818/go.mod h1:ylSf8bwtNibjMkuSgfF661zNqKEYiDY1DGtkQyDsV/0=
 jordanreger.com/bsky/feeds v0.0.0-20240508153704-fe259470af7d h1:m7I5Ecah1AX4aBKRiyZfe9NVWzHD2y62vV8BXRRaTAE=
 jordanreger.com/bsky/feeds v0.0.0-20240508153704-fe259470af7d/go.mod h1:pt7DbcRMYpuj40kU6erK9ycdwqgaX8Mqm4OLsyeDa1Y=
+jordanreger.com/bsky/feeds/algorithms v0.0.0-20240508162452-6284671fa23d h1:/QJ3bAqpD7T5fofsHx1aCTRNc8dShKzyUgj5760DuRc=
+jordanreger.com/bsky/feeds/algorithms v0.0.0-20240508162452-6284671fa23d/go.mod h1:HyqJKSorF9q+V9adodmq1HIuraSmPQOuHICYSWkjsCw=
+jordanreger.com/bsky/util v0.0.0-20240502183753-0e5dd1df59ea h1:WBhmOi7MGzV5MF7oaGQwqQ8MJwbpYOzezKpC1DilhVg=
+jordanreger.com/bsky/util v0.0.0-20240502183753-0e5dd1df59ea/go.mod h1:qGCb++h6UadQVB7GcWjxd9EpOSPNA0Jf16FUkpxXK48=
+jordanreger.com/bsky/util v0.0.0-20240508162802-a227d9bb3da7 h1:wWE0qQCdLHQDuGyowCDdHS0+O/0zW7fHjJ4iqq60sy0=
+jordanreger.com/bsky/util v0.0.0-20240508162802-a227d9bb3da7/go.mod h1:qGCb++h6UadQVB7GcWjxd9EpOSPNA0Jf16FUkpxXK48=
+jordanreger.com/web/util v0.0.0-20240508162003-93e4b6536743 h1:txjQQWNgfxtu2xa6gwIizhpD8R7WEDr3sC1OSq34d4w=
+jordanreger.com/web/util v0.0.0-20240508162003-93e4b6536743/go.mod h1:+2ErdTqoaCN4VVn2DYTiUWXLA2Bm7eDH9E50vmJnsGc=

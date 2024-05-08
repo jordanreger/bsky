@@ -11,8 +11,8 @@ import (
 	"jordanreger.com/web/util"
 )
 
-var endpoint = "https://nwsbots.fly.dev"
-var did = "did:plc:gxd2cb5sggi5qaug3xm7u7i5"
+var endpoint = "https://feeds.jordanreger.com"
+var did = "did:plc:27rjcwbur2bizjjx3zakeme5"
 
 func main() {
 	mux := http.NewServeMux()
@@ -27,7 +27,15 @@ func main() {
 	mux.HandleFunc("/xrpc/app.bsky.feed.describeFeedGenerator", func(w http.ResponseWriter, r *http.Request) {
 		util.ContentType(w, "application/json")
 
-		fmt.Fprint(w, feeds.DescribeFeedGenerator(did))
+		states := []string{"al", "ak", "az", "ar", "as", "ca", "co", "ct", "de", "dc", "fl", "ga", "gu", "hi", "id", "il", "in", "ia", "ks", "ky", "la", "me", "md", "ma", "mi", "mn", "ms", "mo", "mt", "ne", "nv", "nh", "nj", "nm", "ny", "nc", "nd", "mp", "oh", "ok", "or", "pa", "pr", "ri", "sc", "sd", "tn", "tx", "tt", "ut", "vt", "va", "vi", "wa", "wv", "wi", "wy"}
+
+		var fl []feeds.Feed
+
+		for _, state := range states {
+			fl = append(fl, feeds.Feed{URI: "at://" + did + "/app.bsky.feed.generator/" + state + "wx"})
+		}
+
+		fmt.Fprint(w, feeds.DescribeFeedGenerator(did, fl))
 		return
 	})
 

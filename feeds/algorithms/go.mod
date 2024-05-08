@@ -7,4 +7,4 @@ require (
 	jordanreger.com/bsky/feeds v0.0.0-20240508153704-fe259470af7d
 )
 
-require jordanreger.com/bsky/util v0.0.0-20240502183753-0e5dd1df59ea // indirect
+require jordanreger.com/bsky/util v0.0.0-20240508162802-a227d9bb3da7 // indirect
