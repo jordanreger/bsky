@@ -1,3 +1,3 @@
-module jordanreger.com/bsky/util
+module git.sr.ht/~jordanreger/bsky/util
 
 go 1.22.0
