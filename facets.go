@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"jordanreger.com/bsky/util"
+	"git.sr.ht/~jordanreger/bsky/util"
 )
 
 /*********************************

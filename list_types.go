@@ -1,8 +1,8 @@
 package bsky
 
 import (
+	"git.sr.ht/~jordanreger/bsky/util"
 	"html/template"
-	"jordanreger.com/bsky/util"
 	"time"
 )
 
